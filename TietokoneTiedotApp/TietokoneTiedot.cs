@@ -354,3 +354,4 @@ namespace TietokoneTiedotApp
         public double KokoGB => KaytettyGB + VapaaGB;
     }
 }
+
