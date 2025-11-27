@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- LiveChartsCore Preview .NET 8 WPF -->
+		<PackageReference Include="LiveChartsCore" Version="2.0.0-rc6.1" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc6.1" />
+		<PackageReference Include="SkiaSharp" Version="3.119.1" />
+
+		<!-- Tietokoneen hallinta -->
+		<PackageReference Include="System.Management" Version="9.0.10" />
+
+
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Icons\" />
+	</ItemGroup>
+
+</Project>
