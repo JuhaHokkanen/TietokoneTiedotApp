@@ -22,8 +22,4 @@
 
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Icons\" />
-	</ItemGroup>
-
 </Project>

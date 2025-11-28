@@ -49,6 +49,33 @@
                 </Button.Template>
             </Button>
 
+            <!-- Tallenna html-nappi -->
+            <Button Content="Tallenna HTML-raportti"
+            Margin="0,0,20,0"
+            Width="150"
+            Height="40"
+            Click="BtnTallennaRaportti_Click"
+            Background="#FF007ACC"
+            Foreground="White"
+            FontWeight="SemiBold"
+            BorderThickness="0"
+            Cursor="Hand"
+            Padding="10,5">
+                <Button.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="2"/>
+                </Button.Effect>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                        CornerRadius="8" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
             <!-- Lähetä Pastebiniin -nappi -->
             <Button Content="Lähetä Pastebiniin"
             Margin="0,0,20,0"

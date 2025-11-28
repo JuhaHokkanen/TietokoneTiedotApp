@@ -6,40 +6,66 @@ namespace TietokoneTiedotApp
 {
     public static class HtmlRaportti
     {
-        public static void TallennaHtmlTiedosto(TietokoneTiedot tiedot)
+        public static string TallennaHtmlTiedosto(TietokoneTiedot tiedot)
         {
-            var polku = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                $"TietokoneRaportti_{DateTime.Now:yyyyMMdd_HHmmss}.html");
+            string tiedostonimi = $"TietokoneRaportti_{DateTime.Now:yyyyMMdd_HHmmss}.html";
+            string kansio = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string polku = Path.Combine(kansio, tiedostonimi);
 
+            // HTML builder
             var sb = new StringBuilder();
 
-            sb.AppendLine("<!DOCTYPE html>");
-            sb.AppendLine("<html lang=\"fi\">");
-            sb.AppendLine("<head>");
-            sb.AppendLine("<meta charset=\"UTF-8\">");
-            sb.AppendLine("<title>Tietokoneen tiedot</title>");
-            sb.AppendLine("<style>");
-            sb.AppendLine("body { font-family: 'Segoe UI', sans-serif; background: #1e1e1e; color: #ffffff; padding: 20px; }");
-            sb.AppendLine("h1 { color: #FFD700; }");
-            sb.AppendLine("ul { list-style-type: none; padding: 0; }");
-            sb.AppendLine("li { margin-bottom: 6px; }");
-            sb.AppendLine("</style>");
-            sb.AppendLine("</head>");
-            sb.AppendLine("<body>");
+            sb.Append("""
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Tietokoneen tiedot</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #121212;
+        color: #f0f0f0;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    h1 {
+        color: #ffc400;
+    }
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    li {
+        margin-bottom: 8px;
+        padding: 6px;
+        background: #1f1f1f;
+        border-radius: 6px;
+    }
+</style>
+</head>
+<body>
+""");
+
             sb.AppendLine($"<h1>Tietokoneen tiedot ({DateTime.Now:dd.MM.yyyy HH:mm})</h1>");
             sb.AppendLine("<ul>");
 
             foreach (var rivi in tiedot.HaeKaikkiTiedot())
             {
-                sb.AppendLine($"<li>{System.Net.WebUtility.HtmlEncode(rivi)}</li>");
+                string encoded = System.Net.WebUtility.HtmlEncode(rivi);
+                sb.AppendLine($"<li>{encoded}</li>");
             }
 
-            sb.AppendLine("</ul>");
-            sb.AppendLine("</body>");
-            sb.AppendLine("</html>");
+            sb.Append("""
+</ul>
+</body>
+</html>
+""");
 
-            File.WriteAllText(polku, sb.ToString());
+            // Tallenna tiedosto
+            File.WriteAllText(polku, sb.ToString(), Encoding.UTF8);
+
+            return polku;
         }
     }
 }

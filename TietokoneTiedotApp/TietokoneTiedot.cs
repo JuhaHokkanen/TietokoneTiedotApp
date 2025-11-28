@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Management;
 using System.Linq;
 using System.Windows.Forms;
+using System.IO;
+using System.Runtime.InteropServices;
+
 
 namespace TietokoneTiedotApp
 {
@@ -12,6 +15,7 @@ namespace TietokoneTiedotApp
         {
             var lista = new List<string>();
             lista.Add($"Päivämäärä: {DateTime.Now:dd.MM.yyyy HH:mm:ss}");
+            lista.AddRange(HaeKayttojarjestelma());
             lista.AddRange(HaeBIOS());
             lista.AddRange(HaeEmolevy());
             lista.AddRange(HaeCPU());
@@ -19,6 +23,43 @@ namespace TietokoneTiedotApp
             lista.AddRange(HaeNaytot());
             lista.AddRange(HaeAkku());
             lista.AddRange(HaeKovalevyTiedot());
+            lista.AddRange(HaeVerkko());
+            lista.AddRange(HaeTietokoneJarjestelma());
+            return lista;
+        }
+
+
+        public List<string> HaeTietokoneJarjestelma()
+        {
+            var lista = new List<string>();
+
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystem"))
+                {
+                    foreach (ManagementObject cs in searcher.Get())
+                    {
+                        string nimi = cs["Name"]?.ToString() ?? "Tuntematon";
+                        string valmistaja = cs["Manufacturer"]?.ToString() ?? "Tuntematon";
+                        string malli = cs["Model"]?.ToString() ?? "Tuntematon";
+                        string kayttaja = cs["UserName"]?.ToString() ?? "Tuntematon";
+                        string domain = cs["Domain"]?.ToString() ?? "Tuntematon";
+
+                        lista.Add($"Tietokoneen nimi: {nimi}");
+                        lista.Add($"Valmistaja: {valmistaja}");
+                        lista.Add($"Malli: {malli}");
+                        lista.Add($"Kirjautunut käyttäjä: {kayttaja}");
+                        lista.Add($"Domain / työryhmä: {domain}");
+                    }
+                }
+                if (lista.Count == 0)
+                    lista.Add("Tietokonejärjestelmä: Ei löytynyt");
+            }
+            catch (Exception ex)
+            {
+                lista.Add($"Tietokonejärjestelmä: Tietoja ei saatavilla ({ex.Message})");
+            }
+
             return lista;
         }
 
@@ -37,6 +78,58 @@ namespace TietokoneTiedotApp
             }
             return lista;
         }
+
+        public List<string> HaeVerkko()
+        {
+            var lista = new List<string>();
+
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher(
+                    "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = TRUE"))
+                {
+                    int index = 1;
+                    foreach (ManagementObject nic in searcher.Get())
+                    {
+                        string nimi = nic["Description"]?.ToString() ?? "Tuntematon";
+                        string mac = nic["MACAddress"]?.ToString() ?? "Tuntematon";
+
+                        string[] ipt = nic["IPAddress"] as string[];
+                        string[] maskit = nic["IPSubnet"] as string[];
+                        string[] gatewayt = nic["DefaultIPGateway"] as string[];
+                        string dhcpEnabled = (nic["DHCPEnabled"] != null && (bool)nic["DHCPEnabled"]) ? "Kyllä" : "Ei";
+
+                        string ip = (ipt != null && ipt.Length > 0) ? string.Join(", ", ipt) : "-";
+                        string maski = (maskit != null && maskit.Length > 0) ? string.Join(", ", maskit) : "-";
+                        string gateway = (gatewayt != null && gatewayt.Length > 0) ? string.Join(", ", gatewayt) : "-";
+
+                        lista.Add(
+                            $"Verkkosovitin #{index}\n" +
+                            $"Nimi: {nimi}\n" +
+                            $"MAC-osoite: {mac}\n" +
+                            $"IP-osoite(t): {ip}\n" +
+                            $"Aliverkon peite: {maski}\n" +
+                            $"Yhdyskäytävä(t): {gateway}\n" +
+                            $"DHCP käytössä: {dhcpEnabled}\n"
+                        );
+
+                        index++;
+                    }
+
+                    if (lista.Count == 0)
+                        lista.Add("Verkko: IP-käytössä olevia sovittimia ei löytynyt");
+                }
+            }
+            catch (Exception ex)
+            {
+                lista.Add($"Verkko: Tietoja ei saatavilla ({ex.Message})");
+            }
+
+            return lista;
+        }
+
+
+
 
         public List<string> HaeEmolevy()
         {
@@ -185,7 +278,7 @@ namespace TietokoneTiedotApp
                     int index = 1;
                     foreach (ManagementObject ram in searcher.Get())
                     {
-                        
+
 
                         string tyyppi = MemoryTypeToString(ram);
                         string nopeus = ram["Speed"]?.ToString() ?? "Tuntematon";
@@ -249,6 +342,34 @@ namespace TietokoneTiedotApp
         }
 
 
+        public List<string> HaeKayttojarjestelma()
+        {
+            var lista = new List<string>();
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem"))
+                {
+                    foreach (ManagementObject os in searcher.Get())
+                    {
+                        string nimi = os["Caption"]?.ToString() ?? "Tuntematon";
+                        string versio = os["Version"]?.ToString() ?? "Tuntematon";
+                        string arkkitehtuuri = os["OSArchitecture"]?.ToString() ?? "Tuntematon";
+
+                        lista.Add($"Käyttöjärjestelmä: {nimi}");
+                        lista.Add($"Versio: {versio}");
+                        lista.Add($"Arkkitehtuuri: {arkkitehtuuri}");
+                    }
+                }
+                if (lista.Count == 0)
+                    lista.Add("Käyttöjärjestelmä: Ei löytynyt");
+            }
+            catch (Exception ex)
+            {
+                lista.Add($"Käyttöjärjestelmä: Tietoja ei saatavilla ({ex.Message})");
+            }
+
+            return lista;
+        }
 
 
 
@@ -342,6 +463,8 @@ namespace TietokoneTiedotApp
             return tulokset;
         }
     }
+}
+    
 
 
     
@@ -353,5 +476,5 @@ namespace TietokoneTiedotApp
         public double VapaaGB { get; set; }
         public double KokoGB => KaytettyGB + VapaaGB;
     }
-}
+
 

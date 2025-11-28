@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Input;
+using System.IO;
 
 
 namespace TietokoneTiedotApp
@@ -31,6 +32,9 @@ namespace TietokoneTiedotApp
             NäytäTiedot();
         }
 
+
+
+
         #region TiedotPanel-kortit
         private void NäytäTiedot()
         {
@@ -38,7 +42,7 @@ namespace TietokoneTiedotApp
 
             TiedotPanel.Children.Add(LuoTietokortti("Päivämäärä",
                 new List<string> { DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss") }, "Icons/calendar.png"));
-
+            TiedotPanel.Children.Add(LuoTietokortti("Käyttöjärjestelmä", tiedot.HaeKayttojarjestelma(), "Icons/chip.png"));
             TiedotPanel.Children.Add(LuoTietokortti("BIOS", tiedot.HaeBIOS(), "Icons/chip.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Emolevy", tiedot.HaeEmolevy(), "Icons/motherboard.png"));
             TiedotPanel.Children.Add(LuoTietokortti("CPU", tiedot.HaeCPU(), "Icons/cpu.png")); 
@@ -46,6 +50,8 @@ namespace TietokoneTiedotApp
             TiedotPanel.Children.Add(LuoTietokortti("Näyttö", tiedot.HaeNaytot(), "Icons/monitor.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Akku", tiedot.HaeAkku(), "Icons/battery.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Levyasetukset", tiedot.HaeKovalevyTiedot(), "Icons/harddisk.png"));
+            TiedotPanel.Children.Add(LuoTietokortti("Verkko", tiedot.HaeVerkko(), "Icons/network.png"));
+            TiedotPanel.Children.Add(LuoTietokortti("Järjestelmä", tiedot.HaeTietokoneJarjestelma(), "Icons/system.png"));
         }
 
         private Border LuoTietokortti(string otsikko, List<string> rivit, string ikoniPolku)
@@ -125,6 +131,14 @@ namespace TietokoneTiedotApp
             {
                 PastebinLinkTextBlock.Text = $"Virhe: {ex.Message}";
             }
+        }
+
+        private void BtnTallennaRaportti_Click(object sender, RoutedEventArgs e)
+        {
+            var tiedot = new TietokoneTiedot();
+            string polku = HtmlRaportti.TallennaHtmlTiedosto(tiedot);
+
+            System.Windows.MessageBox.Show($"Raportti tallennettu:\n{polku}");
         }
 
         private void PastebinLink_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
