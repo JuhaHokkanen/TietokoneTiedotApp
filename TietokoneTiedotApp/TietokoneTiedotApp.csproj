@@ -11,6 +11,52 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="calendar.png" />
+	  <None Remove="Icons\calendar.png" />
+	  <None Remove="Icons\cpu.png" />
+	  <None Remove="Icons\folder.png" />
+	  <None Remove="Icons\harddisk.png" />
+	  <None Remove="Icons\monitor.png" />
+	  <None Remove="Icons\motherboard.png" />
+	  <None Remove="Icons\ram.png" />
+	  <None Remove="Icons\system.png" />
+	  <None Remove="Icons\web.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Icons\calendar.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Icons\cpu.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Icons\folder.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Icons\harddisk.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Icons\battery.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Icons\monitor.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Icons\motherboard.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Icons\ram.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Icons\system.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Icons\web.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<!-- LiveChartsCore Preview .NET 8 WPF -->
 		<PackageReference Include="LiveChartsCore" Version="2.0.0-rc6.1" />
 		<PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc6.1" />
@@ -20,6 +66,10 @@
 		<PackageReference Include="System.Management" Version="9.0.10" />
 
 
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="calendar.png" />
 	</ItemGroup>
 
 </Project>

@@ -40,17 +40,16 @@ namespace TietokoneTiedotApp
         {
             TiedotPanel.Children.Clear();
 
-            TiedotPanel.Children.Add(LuoTietokortti("Päivämäärä",
-                new List<string> { DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss") }, "Icons/calendar.png"));
-            TiedotPanel.Children.Add(LuoTietokortti("Käyttöjärjestelmä", tiedot.HaeKayttojarjestelma(), "Icons/chip.png"));
-            TiedotPanel.Children.Add(LuoTietokortti("BIOS", tiedot.HaeBIOS(), "Icons/chip.png"));
+            TiedotPanel.Children.Add(LuoTietokortti("Päivämäärä", new List<string> { DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss") }, "/calendar.png"));
+            TiedotPanel.Children.Add(LuoTietokortti("Käyttöjärjestelmä", tiedot.HaeKayttojarjestelma(), "Icons/system.png"));
+            TiedotPanel.Children.Add(LuoTietokortti("BIOS", tiedot.HaeBIOS(), "Icons/cpu.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Emolevy", tiedot.HaeEmolevy(), "Icons/motherboard.png"));
             TiedotPanel.Children.Add(LuoTietokortti("CPU", tiedot.HaeCPU(), "Icons/cpu.png")); 
-            TiedotPanel.Children.Add(LuoTietokortti("Muisti", tiedot.HaeMuisti(), "~/Icons/ram.png")); 
+            TiedotPanel.Children.Add(LuoTietokortti("Muisti", tiedot.HaeMuisti(), "Icons/ram.png")); 
             TiedotPanel.Children.Add(LuoTietokortti("Näyttö", tiedot.HaeNaytot(), "Icons/monitor.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Akku", tiedot.HaeAkku(), "Icons/battery.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Levyasetukset", tiedot.HaeKovalevyTiedot(), "Icons/harddisk.png"));
-            TiedotPanel.Children.Add(LuoTietokortti("Verkko", tiedot.HaeVerkko(), "Icons/network.png"));
+            TiedotPanel.Children.Add(LuoTietokortti("Verkko", tiedot.HaeVerkko(), "Icons/web.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Järjestelmä", tiedot.HaeTietokoneJarjestelma(), "Icons/system.png"));
         }
 
@@ -59,10 +58,12 @@ namespace TietokoneTiedotApp
             var border = new Border
             {
                 CornerRadius = new CornerRadius(10),
-                Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(45, 45, 45)),
+                //Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(45, 45, 45)),
+                Background = new SolidColorBrush(System.Windows.Media.Colors.White),
                 Padding = new Thickness(12),
                 Margin = new Thickness(8),
-                BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(80, 80, 80)),
+                //BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(80, 80, 80)),
+                BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(200, 200, 200)),
                 BorderThickness = new Thickness(1),
                 Width = 320
             };
@@ -72,8 +73,8 @@ namespace TietokoneTiedotApp
 
             System.Windows.Controls.Image icon = new System.Windows.Controls.Image
             {
-                Width = 22,
-                Height = 22,
+                Width = 24,
+                Height = 24,
                 Margin = new Thickness(0, 0, 8, 0)
             };
 
@@ -102,7 +103,7 @@ namespace TietokoneTiedotApp
                 stack.Children.Add(new TextBlock
                 {
                     Text = rivi,
-                    Foreground = System.Windows.Media.Brushes.LightGray,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     FontSize = 13,
                     Margin = new Thickness(0, 2, 0, 2),
                     TextWrapping = TextWrapping.Wrap
