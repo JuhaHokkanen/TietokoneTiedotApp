@@ -46,7 +46,7 @@ namespace TietokoneTiedotApp
             TiedotPanel.Children.Add(LuoTietokortti("BIOS", tiedot.HaeBIOS(), "Icons/chip.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Emolevy", tiedot.HaeEmolevy(), "Icons/motherboard.png"));
             TiedotPanel.Children.Add(LuoTietokortti("CPU", tiedot.HaeCPU(), "Icons/cpu.png")); 
-            TiedotPanel.Children.Add(LuoTietokortti("Muisti", tiedot.HaeMuisti(), "Icons/ram.png")); 
+            TiedotPanel.Children.Add(LuoTietokortti("Muisti", tiedot.HaeMuisti(), "~/Icons/ram.png")); 
             TiedotPanel.Children.Add(LuoTietokortti("Näyttö", tiedot.HaeNaytot(), "Icons/monitor.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Akku", tiedot.HaeAkku(), "Icons/battery.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Levyasetukset", tiedot.HaeKovalevyTiedot(), "Icons/harddisk.png"));
