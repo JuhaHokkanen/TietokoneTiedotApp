@@ -321,7 +321,11 @@ namespace TietokoneTiedotApp
                     21 => "DDR2",
                     24 => "DDR3",
                     26 => "DDR4",
-                    _ => "Tuntematon"
+                    30 => "LPDDR4", // Yleinen uusissa läppäreissä
+                    34 => "DDR5",   // <-- TÄMÄ LISÄTTIIN
+                    35 => "LPDDR5", // Uusimmat ohuet läppärit
+                    0 => "Tuntematon", // Nolla tarkoittaa usein, että BIOS ei kerro tyyppiä
+                    _ => "Muu / Tuntematon"
                 };
             }
 

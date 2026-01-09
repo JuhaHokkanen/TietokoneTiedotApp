@@ -40,7 +40,7 @@ namespace TietokoneTiedotApp
         {
             TiedotPanel.Children.Clear();
 
-            TiedotPanel.Children.Add(LuoTietokortti("Päivämäärä", new List<string> { DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss") }, "/calendar.png"));
+            TiedotPanel.Children.Add(LuoTietokortti("Päivämäärä", new List<string> { DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss") }, "Icons/calendar.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Käyttöjärjestelmä", tiedot.HaeKayttojarjestelma(), "Icons/system.png"));
             TiedotPanel.Children.Add(LuoTietokortti("BIOS", tiedot.HaeBIOS(), "Icons/cpu.png"));
             TiedotPanel.Children.Add(LuoTietokortti("Emolevy", tiedot.HaeEmolevy(), "Icons/motherboard.png"));
