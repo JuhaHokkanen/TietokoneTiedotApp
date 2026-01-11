@@ -39,6 +39,8 @@ namespace TietokoneTiedotApp
                 {
                     foreach (ManagementObject cs in searcher.Get())
                     {
+                        // Operaattori ?. varmistaa, ettei ohjelma kaadu jos arvo on null.
+                        // Operaattori ?? antaa oletusarvon jos tulos on null.
                         string nimi = cs["Name"]?.ToString() ?? "Tuntematon";
                         string valmistaja = cs["Manufacturer"]?.ToString() ?? "Tuntematon";
                         string malli = cs["Model"]?.ToString() ?? "Tuntematon";
@@ -322,7 +324,7 @@ namespace TietokoneTiedotApp
                     24 => "DDR3",
                     26 => "DDR4",
                     30 => "LPDDR4", // Yleinen uusissa läppäreissä
-                    34 => "DDR5",   // <-- TÄMÄ LISÄTTIIN
+                    34 => "DDR5",   // DDR5 standardi
                     35 => "LPDDR5", // Uusimmat ohuet läppärit
                     0 => "Tuntematon", // Nolla tarkoittaa usein, että BIOS ei kerro tyyppiä
                     _ => "Muu / Tuntematon"

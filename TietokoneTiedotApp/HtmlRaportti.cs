@@ -52,6 +52,7 @@ namespace TietokoneTiedotApp
 
             foreach (var rivi in tiedot.HaeKaikkiTiedot())
             {
+                // HtmlEncode varmistaa, että erikoismerkit (<, >, &) eivät riko HTML-rakennetta
                 string encoded = System.Net.WebUtility.HtmlEncode(rivi);
                 sb.AppendLine($"<li>{encoded}</li>");
             }

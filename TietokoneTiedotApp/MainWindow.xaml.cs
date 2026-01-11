@@ -106,7 +106,8 @@ namespace TietokoneTiedotApp
                     Foreground = System.Windows.Media.Brushes.Black,
                     FontSize = 13,
                     Margin = new Thickness(0, 2, 0, 2),
-                    TextWrapping = TextWrapping.Wrap
+                    TextWrapping = TextWrapping.Wrap // Rivitys pitkille teksteille
+
                 });
             }
 
